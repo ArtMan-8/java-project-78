@@ -9,7 +9,11 @@ public class StringSchema extends BaseSchema<String> {
 
     @Override
     public boolean isValid(String value) {
-        if (!isRequired && (value == null || value.isEmpty())) {
+        if (!isRequired && value == null) {
+            return true;
+        }
+
+        if (!isRequired && value.isEmpty()) {
             return true;
         }
 
