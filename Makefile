@@ -25,5 +25,5 @@ test-report: # Подготовить покрытие тестов
 build: clean # Установить зависимости и собрать дистрибутив
 	$(GRADLEW) installDist
 
-run-dist: build # Запустить дистрибутив
+run: build # Запустить дистрибутив
 	$(BIN_APP)
