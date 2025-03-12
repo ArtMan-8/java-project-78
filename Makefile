@@ -23,7 +23,4 @@ test-report: # Подготовить покрытие тестов
 	$(GRADLEW) jacocoTestReport
 
 build: clean # Установить зависимости и собрать дистрибутив
-	$(GRADLEW) installDist
-
-run: build # Запустить дистрибутив
-	$(BIN_APP)
+	$(GRADLEW) build

@@ -2,44 +2,10 @@ package hexlet.code.schemas;
 
 /** Класс StringSchema для создания схем проверки строк. */
 public class StringSchema extends BaseSchema<String> {
-    private boolean isRequired = false;
-    private int minLength = 0;
-    private String text = "";
-
-    public StringSchema() { }
-
-    /**
-     * Метод валидирует данные по определённой схеме.
-     * @param data проверяемые данные
-     * @return true, если данные соответствуют схеме, иначе false
-     */
     @Override
-    public boolean isValid(String data) {
-        if (!isRequired && data == null) {
-            return true;
-        }
-
-        if (!isRequired && data.isEmpty()) {
-            return true;
-        }
-
-        if (data == null || data.isEmpty()) {
-            return false;
-        }
-
-        if (data.length() < minLength) {
-            return false;
-        }
-
-        return data.contains(text);
-    }
-
-    /**
-     * Метод добавляет правило валидации, что строка должна быть не пустой.
-     * @return StringSchema
-     */
-    public StringSchema required() {
-        this.isRequired = true;
+    public final StringSchema required() {
+        super.required();
+        this.addSchema("noEmptyString", (data) -> !data.isEmpty());
         return this;
     }
 
@@ -49,17 +15,17 @@ public class StringSchema extends BaseSchema<String> {
      * @return StringSchema
      */
     public StringSchema minLength(int min) {
-        this.minLength = min;
+        this.addSchema("minLength", (data) -> data.length() >= min);
         return this;
     }
 
     /**
      * Метод добавляет правило валидации, что строка должна содержать определённую подстроку.
-     * @param str подстрока
+     * @param text подстрока
      * @return StringSchema
      */
-    public StringSchema contains(String str) {
-        this.text = str;
+    public StringSchema contains(String text) {
+        this.addSchema("containsText", (data) -> data.contains(text));
         return this;
     }
 }

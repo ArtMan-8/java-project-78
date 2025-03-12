@@ -15,7 +15,7 @@ public class StringSchemaTest {
         schema.minLength(5).contains("Java");
 
         assertTrue(schema.isValid(null));
-        assertTrue(schema.isValid(""));
+        assertFalse(schema.isValid(""));
         assertTrue(schema.isValid("Java Core"));
         assertFalse(schema.isValid("Java"));
     }
